@@ -5,6 +5,42 @@
  */
 
 const FIREBASE_ENDPOINT = 'https://bukanmykisah-default-rtdb.asia-southeast1.firebasedatabase.app/story_stats.json';
+const FIREBASE_DEVICES_ENDPOINT = 'https://bukanmykisah-default-rtdb.asia-southeast1.firebasedatabase.app/story_stats/devices.json';
+
+/**
+ * Safe HTTP request helper that never throws or rejects
+ * Bypasses browser extension hook issues (e.g. 200.js / M_ID errors)
+ */
+function safeHttpRequest(url, method = 'GET', data = null) {
+  return new Promise((resolve) => {
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.timeout = 8000;
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            resolve(JSON.parse(xhr.responseText));
+          } catch {
+            resolve(null);
+          }
+        } else {
+          resolve(null);
+        }
+      };
+
+      xhr.onerror = () => resolve(null);
+      xhr.ontimeout = () => resolve(null);
+      xhr.onabort = () => resolve(null);
+
+      xhr.send(data ? JSON.stringify(data) : null);
+    } catch {
+      resolve(null);
+    }
+  });
+}
 
 export class IGInteractions {
   constructor(soundManager) {
@@ -64,9 +100,9 @@ export class IGInteractions {
    */
   async fetchLiveStats() {
     try {
-      const res = await fetch(FIREBASE_ENDPOINT, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Status ' + res.status);
-      const data = await res.json();
+      const data = await safeHttpRequest(FIREBASE_ENDPOINT, 'GET');
+      if (!data) return null;
+
       const devices = (data && data.devices && typeof data.devices === 'object') ? data.devices : {};
       const deviceCount = Object.keys(devices).length;
 
@@ -78,8 +114,7 @@ export class IGInteractions {
         likes: (data && typeof data.likes === 'number') ? data.likes : 0,
         devices: devices
       };
-    } catch (err) {
-      console.warn('Gagal membaca data Firebase (fallback offline):', err);
+    } catch {
       return null;
     }
   }
@@ -89,13 +124,9 @@ export class IGInteractions {
    */
   async patchLiveStats(patchData) {
     try {
-      await fetch(FIREBASE_ENDPOINT, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(patchData)
-      });
-    } catch (err) {
-      console.warn('Gagal memperbarui Firebase:', err);
+      await safeHttpRequest(FIREBASE_ENDPOINT, 'PATCH', patchData);
+    } catch {
+      // Silently handled
     }
   }
 
@@ -104,13 +135,9 @@ export class IGInteractions {
    */
   async registerDevice(deviceId) {
     try {
-      await fetch('https://bukanmykisah-default-rtdb.asia-southeast1.firebasedatabase.app/story_stats/devices.json', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ [deviceId]: Date.now() })
-      });
-    } catch (err) {
-      console.warn('Gagal mencatat ID device:', err);
+      await safeHttpRequest(FIREBASE_DEVICES_ENDPOINT, 'PATCH', { [deviceId]: Date.now() });
+    } catch {
+      // Silently handled
     }
   }
 
@@ -134,7 +161,7 @@ export class IGInteractions {
       // 1. Cek apakah ini perangkat baru (Device)
       if (!isDeviceAlreadyKnown) {
         // Daftarkan device ini ke Firebase
-        this.registerDevice(deviceId);
+        await this.registerDevice(deviceId);
 
         if (knownCount === 0) {
           // Jika belum ada device terdaftar di database, jadikan device 1
@@ -161,7 +188,7 @@ export class IGInteractions {
 
       // Kirim pembaruan ke Firebase jika ada pertambahan
       if (Object.keys(patchData).length > 0) {
-        this.patchLiveStats(patchData);
+        await this.patchLiveStats(patchData);
       }
     } else {
       // Fallback penyimpanan lokal jika offline
