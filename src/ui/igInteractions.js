@@ -50,6 +50,15 @@ export class IGInteractions {
     await this.syncVisitorAndStats();
   }
 
+  getDeviceId() {
+    let id = localStorage.getItem('au_device_uuid');
+    if (!id) {
+      id = 'dev_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36);
+      localStorage.setItem('au_device_uuid', id);
+    }
+    return id;
+  }
+
   /**
    * Fetch current stats from Firebase Realtime Database
    */
@@ -58,12 +67,16 @@ export class IGInteractions {
       const res = await fetch(FIREBASE_ENDPOINT, { cache: 'no-store' });
       if (!res.ok) throw new Error('Status ' + res.status);
       const data = await res.json();
+      const devices = (data && data.devices && typeof data.devices === 'object') ? data.devices : {};
+      const deviceCount = Object.keys(devices).length;
+
       return {
         unique_devices: (data && typeof data.unique_devices === 'number')
           ? data.unique_devices
-          : ((data && typeof data.visitors === 'number') ? data.visitors : 1),
+          : (deviceCount > 0 ? deviceCount : 1),
         total_views: (data && typeof data.total_views === 'number') ? data.total_views : 1,
-        likes: (data && typeof data.likes === 'number') ? data.likes : 0
+        likes: (data && typeof data.likes === 'number') ? data.likes : 0,
+        devices: devices
       };
     } catch (err) {
       console.warn('Gagal membaca data Firebase (fallback offline):', err);
@@ -87,9 +100,25 @@ export class IGInteractions {
   }
 
   /**
+   * Register device ID to Firebase
+   */
+  async registerDevice(deviceId) {
+    try {
+      await fetch('https://bukanmykisah-default-rtdb.asia-southeast1.firebasedatabase.app/story_stats/devices.json', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ [deviceId]: Date.now() })
+      });
+    } catch (err) {
+      console.warn('Gagal mencatat ID device:', err);
+    }
+  }
+
+  /**
    * Record visitor per unique device and sync counts
    */
   async syncVisitorAndStats() {
+    const deviceId = this.getDeviceId();
     const liveStats = await this.fetchLiveStats();
 
     if (liveStats) {
@@ -97,15 +126,29 @@ export class IGInteractions {
       this.totalViews = Math.max(liveStats.total_views, 1);
       this.likeCount = Math.max(liveStats.likes, 0);
 
+      const registeredDevices = liveStats.devices || {};
+      const knownCount = Object.keys(registeredDevices).length;
+      const isDeviceAlreadyKnown = Boolean(registeredDevices[deviceId]);
       const patchData = {};
 
-      // 1. Cek apakah ini perangkat baru (Berapa device yang lihat)
-      const hasRegisteredDevice = localStorage.getItem('au_device_registered');
-      if (!hasRegisteredDevice) {
-        this.uniqueDevices += 1;
-        patchData.unique_devices = this.uniqueDevices;
+      // 1. Cek apakah ini perangkat baru (Device)
+      if (!isDeviceAlreadyKnown) {
+        // Daftarkan device ini ke Firebase
+        this.registerDevice(deviceId);
+
+        if (knownCount === 0) {
+          // Jika belum ada device terdaftar di database, jadikan device 1
+          this.uniqueDevices = 1;
+          patchData.unique_devices = 1;
+        } else {
+          // Jika perangkat lain baru yang membuka tautan
+          this.uniqueDevices = Math.max(liveStats.unique_devices, knownCount) + 1;
+          patchData.unique_devices = this.uniqueDevices;
+        }
         patchData.visitors = this.uniqueDevices;
-        localStorage.setItem('au_device_registered', 'true');
+      } else {
+        // Device sudah pernah tercatat, gunakan data akurat
+        this.uniqueDevices = Math.max(liveStats.unique_devices, knownCount);
       }
 
       // 2. Cek apakah ini sesi kunjungan baru (Berapa kali dilihat)
@@ -122,19 +165,13 @@ export class IGInteractions {
       }
     } else {
       // Fallback penyimpanan lokal jika offline
-      const localDevices = parseInt(localStorage.getItem('au_local_devices') || '1', 10);
       const localViews = parseInt(localStorage.getItem('au_local_views') || '1', 10);
-
-      const hasRegisteredDevice = localStorage.getItem('au_device_registered');
-      this.uniqueDevices = hasRegisteredDevice ? localDevices : localDevices + 1;
-      localStorage.setItem('au_local_devices', this.uniqueDevices.toString());
-      localStorage.setItem('au_device_registered', 'true');
-
       const hasCountedSessionView = sessionStorage.getItem('au_session_view_counted');
       this.totalViews = hasCountedSessionView ? localViews : localViews + 1;
       localStorage.setItem('au_local_views', this.totalViews.toString());
       sessionStorage.setItem('au_session_view_counted', 'true');
 
+      this.uniqueDevices = 1;
       this.likeCount = this.isLiked ? 1 : 0;
     }
 
