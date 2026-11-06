@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Raka & Risya</title>
+
+  <!-- Fonts: Plus Jakarta Sans & Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+
+<body class="loading">
+
+  <!-- Fullscreen WebGL Canvas (Vivid Atmospheric 3D Background) -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Preloader Screen (kpn yh) -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-content">
+      <div class="preloader-scenario-wrap">
+        <h1 class="scenario-title">kpn yh</h1>
+      </div>
+      <div class="preloader-bar-wrap">
+        <div id="preloader-bar" class="preloader-bar"></div>
+      </div>
+      <div class="preloader-meta">
+        <span id="preloader-percent">0%</span>
+        <span>MEMUAT CERITA</span>
+      </div>
+      <p class="preloader-disclaimer">
+        *catatan: nama tokoh dan alur cerita hanyalah buatan fiksi semata, mohon maaf bila ada kesamaan nama atau alur cerita
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Instagram App Layout -->
+  <div class="ig-app-layout">
+
+    <!-- Instagram Post Card -->
+    <main class="ig-post-card">
+
+      <!-- 1. Post Header (Tanpa Lokasi) -->
+      <header class="ig-post-header">
+        <div class="header-profile">
+          <div class="avatar-story-ring">
+            <div class="avatar-img">R</div>
+          </div>
+          <div class="header-user-meta">
+            <div class="user-row">
+              <span class="user-name">raka.adhitama</span>
+              <span class="dot-sep">•</span>
+              <span class="btn-follow">Ikuti</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-right-actions">
+          <button id="btn-more-options" class="btn-more-options" aria-label="More Options">•••</button>
+        </div>
+      </header>
+
+      <!-- 2. Carousel Media Frame (24 Zero-Scroll Slides) -->
+      <div class="ig-carousel-wrapper">
+
+        <!-- Top Right Slide Counter Pill (1/24) -->
+        <div id="slide-counter" class="slide-counter-pill">1/24</div>
+
+        <!-- Desktop Transparent Navigation Arrows -->
+        <button id="btn-prev-slide" class="carousel-arrow arrow-left" aria-label="Slide Sebelumnya">‹</button>
+        <button id="btn-next-slide" class="carousel-arrow arrow-right" aria-label="Slide Selanjutnya">›</button>
+
+        <!-- Instagram Audio Mute/Unmute Button (Pojok Kanan Bawah) -->
+        <button id="ig-audio-btn" class="ig-audio-fab" aria-label="Toggle Audio">
+          <svg class="audio-svg icon-muted" viewBox="0 0 24 24" width="18" height="18">
+            <path fill="currentColor"
+              d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+          </svg>
+          <svg class="audio-svg icon-playing" viewBox="0 0 24 24" width="18" height="18" style="display: none;">
+            <path fill="currentColor"
+              d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+          </svg>
+        </button>
+
+        <!-- Carousel Track (Draggable) -->
+        <div id="carousel-track" class="carousel-track">
+
+          <!-- Slide 01: Acara Kampus -->
+          <article class="au-slide active" data-slide="0">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">01 / 24</span>
+              </div>
+              <h2 class="slide-headline">ACARA KAMPUS</h2>
+              <p class="slide-subhead">alasan sederhana untuk bertemu</p>
+              <div class="slide-prose">
+                <p>
+                  Sejak pertama kali saling mengenal lewat sebuah acara kampus beberapa bulan lalu, Raka dan Risya
+                  memang semakin sering menghabiskan waktu bersama. Meski menjalani kesibukan di bidang kuliah yang
+                  berbeda, keduanya seolah selalu punya alasan sederhana untuk sekadar bertemu di sela-sela jadwal kelas
+                  mulai dari mencari makan siang hingga mencicil tugas bersama seperti hari ini.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 02: Titik Temu -->
+          <article class="au-slide" data-slide="1">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">02 / 24</span>
+              </div>
+              <h2 class="slide-headline">TITIK TEMU</h2>
+              <p class="slide-subhead">janji di lantai satu</p>
+              <div class="slide-prose">
+                <p>
+                  Pagi tadi, sebelum kelas masing-masing dimulai, keduanya sudah sempat bertukar pesan singkat dan
+                  sepakat untuk bertemu di lantai satu selepas jam kuliah siang guna menyelesaikan tugas yang tenggat
+                  waktunya sudah dekat. Kebetulan, kelas Raka hari itu bubar lima belas menit lebih awal, membuatnya
+                  tiba lebih dulu di titik temu yang telah mereka janjikan.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 03: Lantai Satu -->
+          <article class="au-slide" data-slide="2">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">03 / 24</span>
+              </div>
+              <h2 class="slide-headline">LANTAI SATU</h2>
+              <p class="slide-subhead">siang yang terik dan riuh</p>
+              <div class="slide-prose">
+                <p>
+                  Terik matahari siang masih terasa menyengat ketika lantai satu gedung kampus dipenuhi mahasiswa yang
+                  berlalu-lalang. Area lantai satu siang itu benar-benar padat dan riuh oleh dengung percakapan yang
+                  saling bersahutan. Deretan meja dengan kursi-kursi yang mengelilinginya tampak terisi penuh oleh
+                  kerumunan mahasiswa yang sibuk mengobrol, menyantap bekal makan siang, atau sekadar menunggu jadwal
+                  kuliah berikutnya.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 04: Dinding Tangga -->
+          <article class="au-slide" data-slide="3">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">04 / 24</span>
+              </div>
+              <h2 class="slide-headline">DINDING TANGGA</h2>
+              <p class="slide-subhead">menunggu di dekat tangga</p>
+              <div class="slide-prose">
+                <p>
+                  Karena gagal mengamankan meja kosong untuk mereka berdua, Raka akhirnya memilih berdiri bersandar pada
+                  dinding di dekat tangga sambil menyandang tas ransel di bahunya. Tubuhnya yang ramping tampak rapi
+                  dalam balutan kemeja polos yang dikenakannya.
+                </p>
+                <p>
+                  Sesekali ia melirik layar ponsel di tangannya untuk membaca pesan terakhir dari Risya yang mengabarkan
+                  bahwa dirinya sedang berjalan menuju ke sana, lalu kembali menyapu keramaian hingga pandangannya
+                  berhenti pada sosok Risya yang baru saja muncul. Gadis itu tampak sedikit terburu-buru sambil
+                  membetulkan letak kacamatanya yang sedikit turun.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 05: Sosok Risya -->
+          <article class="au-slide" data-slide="4">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">05 / 24</span>
+              </div>
+              <h2 class="slide-headline">SOSOK RISYA</h2>
+              <p class="slide-subhead">tatapan hangat di balik kacamata</p>
+              <div class="slide-prose">
+                <p>
+                  Saat Risya melangkah mendekat dan berhenti tepat di hadapannya, tinggi gadis itu tampak hampir sejajar
+                  dengan Raka pria itu hanya unggul sedikit saja, cukup baginya untuk menatap mata Risya di balik
+                  pantulan lensa kacamata tanpa perlu menunduk terlalu dalam.
+                </p>
+                <p>
+                  Perawakan Risya yang berisi dan proporsional selalu memberikan kesan hangat dan menenangkan setiap
+                  kali ia berdiri bersisian dengan Raka yang bertubuh kurus.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 06: Lantai Bawah yang Penuh -->
+          <article class="au-slide" data-slide="5">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">06 / 24</span>
+              </div>
+              <h2 class="slide-headline">LANTAI PENUH</h2>
+              <p class="slide-subhead">mencari tempat duduk yang tenang</p>
+              <div class="slide-prose">
+                <p>
+                  "Sorry ya, Ka, agak telat dikit. Tadi dosenku baru keluar pas jamnya udah lewat," ujar Risya sambil
+                  mengatur napasnya, lalu mengedarkan pandangan ke sekeliling area lantai satu itu. "Duh, mana penuh
+                  banget lagi di bawah. Ga bakal fokus sih kalo lanjut nugas di sini."
+                </p>
+                <p>
+                  Raka ikut menoleh ke arah kursi-kursi yang melingkari meja-meja di lantai satu itu; memang tak ada
+                  satu pun celah kosong yang tersisa. "Santai aja Sya, aku juga baru selesai, kok. Coba naik ke lantai
+                  dua dulu, yuk. Siapa tahu di atas ada tempat duduk yang kosong."
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 07: Menuju Lantai Dua -->
+          <article class="au-slide" data-slide="6">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">07 / 24</span>
+              </div>
+              <h2 class="slide-headline">MENAIKI TANGGA</h2>
+              <p class="slide-subhead">langkah kaki yang beriringan</p>
+              <div class="slide-prose">
+                <p>
+                  Mereka pun berjalan menaiki anak tangga dengan langkah yang beriringan. Sambil melangkah naik, Risya
+                  sempat bercerita singkat tentang kelas paginya yang membosankan, sementara Raka mendengarkan sambil
+                  sesekali menimpali dengan candaan ringan.
+                </p>
+                <p>
+                  Begitu sampai di lantai dua, suasana memang terasa sedikit lebih lengang dibandingkan lantai satu
+                  tadi. Di sepanjang area luar ini juga tersedia beberapa tempat duduk, meski jumlahnya memang jauh
+                  lebih sedikit jika dibandingkan dengan lantai satu di bawah.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 08: Lorong Lantai Dua -->
+          <article class="au-slide" data-slide="7">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">08 / 24</span>
+              </div>
+              <h2 class="slide-headline">LORONG LANTAI DUA</h2>
+              <p class="slide-subhead">tempat duduk yang telah terisi</p>
+              <div class="slide-prose">
+                <p>
+                  Keduanya sempat melangkah pelan menyusuri lorong sambil celingukan mencari celah. Risya sempat
+                  menunjuk dua kursi di ujung yang tampak lowong, namun saat mereka mendekat, di atas mejanya sudah
+                  tergeletak tumpukan buku dan tas milik mahasiswa lain. Seluruh tempat duduk yang jumlahnya terbatas
+                  itu ternyata sudah lebih dulu dikuasai.
+                </p>
+                <p>
+                  "Yah, sama aja, di sini udah penuh juga ternyata," gumam Raka sambil menoleh ke arah Risya dengan raut
+                  sedikit kecewa.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 09: Pintu Perpustakaan -->
+          <article class="au-slide" data-slide="8">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">09 / 24</span>
+              </div>
+              <h2 class="slide-headline">PINTU KAYU</h2>
+              <p class="slide-subhead">menumpang ngadem buat buka laptop</p>
+              <div class="slide-prose">
+                <p>
+                  "Ya udah, masuk ke perpus aja, yuk. Siapa tau ada kursi kosong, sekalian numpang ngadem buat buka
+                  laptop," usul Risya sambil menunjuk ke arah ruang perpustakaan yang berada tak jauh dari tempat mereka
+                  berdiri.
+                </p>
+                <p>
+                  Raka mengangguk setuju. Ia melangkah lebih dulu mendekati perpustakaan, lalu mendorong daun pintu kayu
+                  yang kokoh dan agak berat itu, menahan bukaannya sejenak agar Risya bisa melangkah masuk lebih dulu.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 10: Dua Kursi Bersebelahan -->
+          <article class="au-slide" data-slide="9">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">10 / 24</span>
+              </div>
+              <h2 class="slide-headline">DUA KURSI KOSONG</h2>
+              <p class="slide-subhead">keheningan di meja berpenyekat</p>
+              <div class="slide-prose">
+                <p>
+                  Kesejukan udara ber-AC dan keheningan khas perpustakaan langsung menyambut mereka begitu pintu kayu
+                  itu tertutup rapat di belakang.
+                </p>
+                <p>
+                  Di dalam ruangan itu, tidak ada meja yang menyendiri di sudut-sudutnya; seluruh area baca diisi oleh
+                  deretan meja panjang di bagian tengah yang posisinya saling berhadapan dan diberi sekat rendah,
+                  bentuknya persis menyerupai meja-meja laboratorium komputer yang kebetulan di bagian tengah ada 2
+                  kursi kosong bersebelahan.
+                </p>
+                <p>
+                  Raka dan Risya berjalan pelan agar tidak menimbulkan suara berisik, lalu menarik dua kursi yang
+                  bersebelahan di bagian tengah meja panjang tersebut agar bisa duduk berdampingan.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 11: Di Balik Dua Layar -->
+          <article class="au-slide" data-slide="10">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">11 / 24</span>
+              </div>
+              <h2 class="slide-headline">DI BALIK DUA LAYAR</h2>
+              <p class="slide-subhead">Software 3D dan deretan angka</p>
+              <div class="slide-prose">
+                <p>
+                  Tanpa membuang waktu, keduanya mulai mengeluarkan laptop beserta tetikus dan kabel pengisi daya dari
+                  dalam tas masing-masing.
+                </p>
+                <p>
+                  Begitu layar menyala, laptop Raka langsung menampilkan ruang kerja aplikasi tiga dimensi yang berlatar
+                  abu-abu gelap, memperlihatkan sebuah projek tiga dimensi yang masih tampak setengah jadi dengan
+                  jaring-jaring poligon yang rumit. Sementara di sebelahnya, layar laptop Risya menampilkan deretan
+                  slide presentasi yang berdampingan dengan lembar tabel berisi deretan angka dan data yang sedang ia
+                  susun.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 12: Sentuhan Siku -->
+          <article class="au-slide" data-slide="11">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">12 / 24</span>
+              </div>
+              <h2 class="slide-headline">SENTUHAN SIKU</h2>
+              <p class="slide-subhead">fokus yang buyar oleh hal sepele</p>
+              <div class="slide-prose">
+                <p>
+                  Sepanjang siang menjelang sore itu, hanya suara ketikan halus dari papan ketik dan bunyi klik tetikus
+                  dari meja mereka yang terdengar mengisi keheningan.
+                </p>
+                <p>
+                  Namun, fokus Raka berkali-kali buyar oleh hal-hal sepele di sebelahnya. Karena duduk bersebelahan di
+                  meja bergaya komputer yang ruang geraknya cukup terbatas, siku dan ujung lengan kemeja Raka sesekali
+                  bersentuhan tanpa sengaja dengan lengan Risya saat ia menggerakkan tetikus untuk memutar sudut pandang
+                  objek tiga dimensinya, atau ketika Risya sedang mengetik cepat.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 13: Curi Pandang -->
+          <article class="au-slide" data-slide="12">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">13 / 24</span>
+              </div>
+              <h2 class="slide-headline">CURI PANDANG</h2>
+              <p class="slide-subhead">kacamata yang melorot di hidung</p>
+              <div class="slide-prose">
+                <p>
+                  Di sela-sela kesibukannya menghaluskan lekukan bentuk pada model tiga dimensinya, Raka justru sering
+                  mencuri pandang ke samping.
+                </p>
+                <p>
+                  Ia memperhatikan bagaimana kacamata berbingkai tipis itu perlahan melorot di hidung Risya saat gadis
+                  itu menunduk serius mencermati bagan dan poin-poin rencana di layarnya, lalu bagaimana jari telunjuk
+                  Risya akan terangkat otomatis untuk mendorong kacamata itu kembali ke posisinya.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 14: Bisikan di Telinga -->
+          <article class="au-slide" data-slide="13">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">14 / 24</span>
+              </div>
+              <h2 class="slide-headline">BISIKAN DI TELINGA</h2>
+              <p class="slide-subhead">jarak wajah yang begitu dekat</p>
+              <div class="slide-prose">
+                <p>
+                  Sesekali, Risya menoleh dan mencondongkan tubuhnya sedikit ke arah Raka. "Ka, menurut kamu warna bagan
+                  di slide ini terlalu pucat nggak, sih?" bisiknya sangat pelan, nyaris seperti embusan angin di dekat
+                  telinga Raka.
+                </p>
+                <p>
+                  Raka sempat terdiam sepersekian detik karena jarak wajah mereka yang tiba-tiba begitu dekat sebelum
+                  akhirnya berdeham pelan dan mengamati layar Risya. "Agak dikasih warna gelap dikit aja di garis
+                  tepinya, Sya, biar datanya lebih kebaca," balasnya dengan suara berbisik yang sama pelannya.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 15: Detak Jantung -->
+          <article class="au-slide" data-slide="14">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">15 / 24</span>
+              </div>
+              <h2 class="slide-headline">DETAK JANTUNG</h2>
+              <p class="slide-subhead">ketenangan manis di dalam perpus</p>
+              <div class="slide-prose">
+                <p>
+                  Ada ketenangan manis yang membuat detak jantung Raka berpacu lebih cepat setiap kali Risya
+                  mencondongkan tubuh ke arahnya untuk berbisik seperti itu, sekadar meminta pendapat soal tampilan
+                  slide-nya atau mengeluhkan rekap datanya yang belum rapi.
+                </p>
+                <p>
+                  Tak terasa, cahaya matahari yang tadinya terang benderang di balik jendela kaca perpustakaan mulai
+                  berubah teduh kekuningan. Jarum jam dinding tepat menunjuk pukul empat sore ketika petugas
+                  perpustakaan mulai berkeliling menghampiri meja-meja, memberi tanda bahwa jam operasional perpustakaan
+                  sudah berakhir.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 16: Pukul Empat Sore -->
+          <article class="au-slide" data-slide="15">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">16 / 24</span>
+              </div>
+              <h2 class="slide-headline">PUKUL EMPAT SORE</h2>
+              <p class="slide-subhead">berkas tersimpan sebelum usai</p>
+              <div class="slide-prose">
+                <p>
+                  Terdengar suara serempak dari para mahasiswa yang mulai menutup laptop dan menarik ritsleting tas.
+                  Beruntung, tepat sebelum petugas sampai di meja mereka, Raka dan Risya sudah berhasil menyimpan hasil
+                  akhir pekerjaan masing-masing. Keduanya merapikan perangkat ke dalam tas, lalu melangkah keluar
+                  melewati pintu kayu perpustakaan.
+                </p>
+                <p>
+                  "Pusing juga ya mantengin layar dari siang," ucap Raka sambil merenggangkan kedua lengannya ke atas
+                  saat mereka berjalan menuruni tangga kembali ke lantai satu yang kini sudah jauh lebih sepi.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 17: Area Parkiran -->
+          <article class="au-slide" data-slide="16">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">17 / 24</span>
+              </div>
+              <h2 class="slide-headline">AREA PARKIRAN</h2>
+              <p class="slide-subhead">angin sore dan helai rambut</p>
+              <div class="slide-prose">
+                <p>
+                  "Banget. Tapi lega sih, akhirnya materi presentasi sama rekap data punyaku barusan kelar juga
+                  semuanya," sahut Risya sambil menghela napas lega, tangannya memijat pelan pangkal hidungnya yang
+                  sedikit pegal karena menahan beban kacamata seharian.
+                </p>
+                <p>
+                  Mereka melangkah keluar dari area kampus dan berjalan bersisian menuju area parkiran bertingkat yang
+                  terhubung langsung di lantai tersebut. Udara sore yang masuk dari celah dinding terbuka gedung parkir
+                  itu terasa cukup bersahabat, menyisakan angin sepoi-sepoi yang menerbangkan beberapa helai anak rambut
+                  Risya.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 18: Kunci Motor -->
+          <article class="au-slide" data-slide="17">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">18 / 24</span>
+              </div>
+              <h2 class="slide-headline">KUNCI MOTOR</h2>
+              <p class="slide-subhead">ajakan keluar di sore hari</p>
+              <div class="slide-prose">
+                <p>
+                  Langkah keduanya melambat saat memasuki deretan motor yang mulai lengang. Sebelum berpisah menuju
+                  motor masing-masing yang terparkir agak berjauhan, Raka menghentikan langkahnya di samping motor
+                  miliknya. Tangannya memegang kunci motor, namun ia belum berniat naik. Ia menatap Risya dengan senyum
+                  tipis yang agak gugup.
+                </p>
+                <p>
+                  "Eh, Sya, nanti malam kamu kosong, nggak?" tanya Raka sambil menyelipkan satu tangan ke saku
+                  celananya, berusaha terlihat santai meski dadanya sedikit berdebar. "Berhubung tugas kita udah
+                  sama-sama selesai, keluar, yuk. Cari angin atau makan di luar gitu buat refreshing."
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 19: Senyum Cerah -->
+          <article class="au-slide" data-slide="18">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">19 / 24</span>
+              </div>
+              <h2 class="slide-headline">SENYUM CERAH</h2>
+              <p class="slide-subhead">janji temu malam hari</p>
+              <div class="slide-prose">
+                <p>
+                  Risya yang baru saja merogoh tas selempangnya untuk mengambil kunci motor seketika menghentikan
+                  gerakannya. Ia menatap Raka, lalu tertawa kecil di balik kacamatanya; raut lelah yang tadinya
+                  membayangi wajahnya langsung berganti menjadi senyum cerah yang manis.
+                </p>
+                <p>
+                  "Kosong, kok. Boleh banget, aku juga butuh refreshing abis berkutat sama tugas dari siang," jawab
+                  Risya.
+                </p>
+                <p>
+                  "Oke, nanti malam aku kabarin lagi buat jemput kamu, ya. Hati-hati di jalan, Sya," pesan Raka sambil
+                  mengambil helmnya dari atas spion.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 20: Meninggalkan Kampus -->
+          <article class="au-slide" data-slide="19">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">20 / 24</span>
+              </div>
+              <h2 class="slide-headline">MENINGGALKAN KAMPUS</h2>
+              <p class="slide-subhead">kembali bertemu beberapa jam kemudian</p>
+              <div class="slide-prose">
+                <p>
+                  "Siap, ditunggu kabarnya. Kamu juga hati-hati, Ka." Setelah saling melempar senyum dan memakai helm
+                  masing-masing, keduanya pun menyalakan mesin dan melajukan motor sendiri-sendiri menuruni jalur
+                  parkiran bertingkat itu untuk meninggalkan area kampus.
+                </p>
+                <p>
+                  Janji santai di parkiran sore itu akhirnya membawa mereka kembali bersama beberapa jam kemudian.
+                  Setelah Raka menjemput Risya di malam harinya, kini keduanya benar-benar jauh dari layar laptop,
+                  tumpukan data, maupun urusan kuliah. Berada sepenuhnya di luar area kampus, mereka menghabiskan waktu
+                  malam itu berdua setelah sempat mencari makan malam bersama.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 21: Tepian Jalan -->
+          <article class="au-slide" data-slide="20">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">21 / 24</span>
+              </div>
+              <h2 class="slide-headline">TEPIAN JALAN</h2>
+              <p class="slide-subhead">pendar lampu jalan kekuningan</p>
+              <div class="slide-prose">
+                <p>
+                  Raka dan Risya duduk berdampingan di sebuah tempat duduk di tepian jalan yang teduh. Suasana malam itu
+                  terasa begitu damai, hanya diterangi oleh pendar lampu jalan yang kekuningan dan ditemani hembusan
+                  angin malam yang sejuk.
+                </p>
+                <p>
+                  Raka mengenakan jaket gelap yang membungkus tubuh rampingnya, sementara Risya tampak manis dengan
+                  pakaian santai yang membalut perawakannya yang berisi. Karena tempat duduk itu tidak terlalu lebar,
+                  mereka duduk begitu rapat; jarak di antara mereka terkikis habis hingga Raka bisa merasakan dengan
+                  jelas hangat tubuh Risya yang menempel di sisi lengannya.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 22: Di Balik Lensa -->
+          <article class="au-slide" data-slide="21">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">22 / 24</span>
+              </div>
+              <h2 class="slide-headline">DI BALIK LENSA</h2>
+              <p class="slide-subhead">tatapan lembut, jujur, dan terbuka</p>
+              <div class="slide-prose">
+                <p>
+                  Obrolan mereka yang tadinya ramai membahas hal-hal acak perlahan mereda menjadi keheningan yang
+                  nyaman. Risya menghela napas pelan, lalu melepas kacamatanya sejenak untuk mengistirahatkan matanya
+                  yang lelah.
+                </p>
+                <p>
+                  Ia melipat gagang kacamata itu dan memegangnya di pangkuan, kemudian menoleh menatap Raka. Tanpa
+                  penghalang lensa kacamata itu, tatapan mata Risya di bawah cahaya lampu malam terasa jauh lebih
+                  lembut, jujur, dan terbuka.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 23: Genggaman Tangan -->
+          <article class="au-slide" data-slide="22">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">23 / 24</span>
+              </div>
+              <h2 class="slide-headline">GENGGAMAN TANGAN</h2>
+              <p class="slide-subhead">hangat jemari yang menyatu</p>
+              <div class="slide-prose">
+                <p>
+                  Detak jantung Raka kembali berdesir hangat. Memberanikan diri, ia menggeser telapak tangannya perlahan
+                  di atas permukaan tempat duduk itu, menyentuh punggung tangan Risya yang terasa hangat, lalu
+                  menyelipkan jemarinya untuk menggenggam tangan gadis itu dengan erat.
+                </p>
+                <p>
+                  Risya sama sekali tidak menghindar. Pipinya sedikit merona samar di tengah temaram malam; ia justru
+                  membalas genggaman jemari Raka dengan sama eratnya, lalu perlahan menyandarkan kepalanya dengan sangat
+                  nyaman di bahu Raka yang ramping.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 24: Perasaan yang Sama -->
+          <article class="au-slide" data-slide="23">
+            <div class="au-slide-inner">
+              <div class="slide-tag-row">
+                <span class="slide-badge-num">24 / 24</span>
+              </div>
+              <h2 class="slide-headline">PERASAAN YANG SAMA</h2>
+              <p class="slide-subhead">di bawah langit malam yang redup</p>
+              <div class="slide-prose">
+                <p>
+                  Raka tersenyum tipis, membiarkan bahunya menjadi sandaran sembari menatap lurus ke arah kerlip lampu
+                  di kejauhan.
+                </p>
+                <p>
+                  Di bawah langit malam yang redup dan angin yang berembus pelan itu, mereka tidak membutuhkan kata-kata
+                  lagi untuk memahami bahwa keduanya telah jatuh pada perasaan yang sama.
+                </p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- 3. Post Action Bar (Tanpa Fitur Komentar) -->
+      <footer class="ig-post-actions">
+        <div class="actions-left">
+          <!-- Like Heart Button -->
+          <button id="btn-like" class="ig-icon-btn like-btn" aria-label="Suka">
+            <svg class="heart-svg" viewBox="0 0 24 24" width="24" height="24">
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </button>
+
+          <!-- Share Paper Airplane -->
+          <button id="btn-share" class="ig-icon-btn share-btn" aria-label="Bagikan">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor"
+                d="M22.02 2.08a.75.75 0 00-.77-.16L2.3 8.36a.75.75 0 00-.05 1.41l8.52 3.46 3.46 8.52a.75.75 0 001.41-.05l6.44-18.95a.75.75 0 00-.06-.67zM11.66 12.34l-6.19-2.51 14.1-4.79-7.91 7.3zm1.96 1.96l7.3-7.91-4.79 14.1-2.51-6.19z" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Center Slide Pagination Dots (24 Dots) -->
+        <div class="actions-dots">
+          <span class="ig-dot active" data-index="0"></span>
+          <span class="ig-dot" data-index="1"></span>
+          <span class="ig-dot" data-index="2"></span>
+          <span class="ig-dot" data-index="3"></span>
+          <span class="ig-dot" data-index="4"></span>
+          <span class="ig-dot" data-index="5"></span>
+          <span class="ig-dot" data-index="6"></span>
+          <span class="ig-dot" data-index="7"></span>
+          <span class="ig-dot" data-index="8"></span>
+          <span class="ig-dot" data-index="9"></span>
+          <span class="ig-dot" data-index="10"></span>
+          <span class="ig-dot" data-index="11"></span>
+          <span class="ig-dot" data-index="12"></span>
+          <span class="ig-dot" data-index="13"></span>
+          <span class="ig-dot" data-index="14"></span>
+          <span class="ig-dot" data-index="15"></span>
+          <span class="ig-dot" data-index="16"></span>
+          <span class="ig-dot" data-index="17"></span>
+          <span class="ig-dot" data-index="18"></span>
+          <span class="ig-dot" data-index="19"></span>
+          <span class="ig-dot" data-index="20"></span>
+          <span class="ig-dot" data-index="21"></span>
+          <span class="ig-dot" data-index="22"></span>
+          <span class="ig-dot" data-index="23"></span>
+        </div>
+
+        <div class="actions-right">
+          <!-- Bookmark Button -->
+          <button id="btn-bookmark" class="ig-icon-btn bookmark-btn" aria-label="Simpan">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor"
+                d="M20 22a.999.999 0 01-.687-.273L12 14.815l-7.313 6.912A1 1 0 013 21V3a1 1 0 011-1h16a1 1 0 011 1v18a1 1 0 01-1 1z" />
+            </svg>
+          </button>
+        </div>
+      </footer>
+
+      <!-- 4. Likes & Custom Caption -->
+      <section class="ig-post-details">
+        <div class="likes-count-row">
+          <span>Disukai oleh <strong>risya.anindya</strong> dan <strong id="like-count">1</strong> lainnya</span>
+        </div>
+
+        <div class="caption-row">
+          <span class="caption-user">raka.adhitama</span>
+          <span class="caption-text">momen ketika bro menulis fake scenario yg ada didalam pikirannya</span>
+        </div>
+
+        <time class="post-time-stamp">3 JAM YANG LALU</time>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Modal Statistik & Opsi (IG More Options) -->
+  <div id="stats-modal" class="stats-modal-overlay" aria-hidden="true">
+    <div class="stats-modal-card">
+      <div class="modal-handle"></div>
+      <div class="stats-modal-header">
+        <h3 class="modal-title">Statistik Cerita</h3>
+        <p class="modal-subtitle">Data kunjungan dan apresiasi pembaca secara langsung</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-icon">📱</div>
+          <div class="stat-value" id="modal-devices-count">-</div>
+          <div class="stat-label">Device Unik</div>
+          <div class="stat-sub">Perangkat yang melihat</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon">👁️</div>
+          <div class="stat-value" id="modal-views-count">-</div>
+          <div class="stat-label">Total Dilihat</div>
+          <div class="stat-sub">Berapa kali dibuka</div>
+        </div>
+
+        <div class="stat-box span-full">
+          <div class="stat-icon">❤️</div>
+          <div class="stat-full-content">
+            <div class="stat-full-title">
+              <span class="stat-value" id="modal-likes-count">-</span>
+              <span class="stat-label">Total Suka</span>
+            </div>
+            <div class="stat-sub">Apresiasi pembaca yang menyukai cerita</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-refresh-stats" class="modal-btn btn-secondary" aria-label="Segarkan Data">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path fill="currentColor"
+              d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+          </svg>
+          Segarkan Data
+        </button>
+
+        <button id="btn-copy-link" class="modal-btn btn-primary" aria-label="Salin Tautan">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path fill="currentColor"
+              d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" />
+          </svg>
+          Salin Tautan Cerita
+        </button>
+
+        <button id="btn-close-modal" class="modal-btn btn-ghost" aria-label="Tutup">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifikasi Ringkas -->
+  <div id="toast-notify" class="toast-notify" aria-hidden="true">
+    <span id="toast-message">Tautan berhasil disalin!</span>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
