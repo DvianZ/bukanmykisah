@@ -47,20 +47,8 @@ class App {
     // 6. Start Unified Render Loop
     this.startLoop();
 
-    // 7. Initialize Vercel Web Analytics if deployed
-    this.initVercelAnalytics();
-
-    // 8. Bind Cleanup
+    // 7. Bind Cleanup
     window.addEventListener('beforeunload', () => this.dispose());
-  }
-
-  initVercelAnalytics() {
-    if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
-      const script = document.createElement('script');
-      script.defer = true;
-      script.src = '/_vercel/insights/script.js';
-      document.head.appendChild(script);
-    }
   }
 
   runPreloader() {
