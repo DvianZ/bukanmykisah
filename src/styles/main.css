@@ -815,6 +815,44 @@ html, body {
   color: var(--ig-muted);
 }
 
+.stats-single-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.4rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.stat-icon-heart {
+  font-size: 2.2rem;
+  margin-bottom: 0.15rem;
+  animation: heartPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.stat-value-large {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  font-family: var(--font-sans);
+  line-height: 1.1;
+}
+
+.stat-label-large {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--amber-core);
+  letter-spacing: 0.02em;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
